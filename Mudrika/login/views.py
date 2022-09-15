@@ -4,6 +4,8 @@ from .serializer import RegisterSerializer, UserSerializer, LoginSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from .models import User
+
 
 # Create your views here.
 class RegisterApi(generics.GenericAPIView):
@@ -29,3 +31,9 @@ class LoginAPIView(APIView):
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+def home_page(request):
+    obj = User.objects.all()
+    return render(request, 'home.html', {'obj':obj})
+
